@@ -16,6 +16,8 @@ import org.axonframework.messaging.StreamableMessageSource;
 import org.axonframework.modelling.saga.repository.jpa.SagaEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -78,5 +80,10 @@ public class RentalApplication {
     public Cache bikeCache() {
         return new WeakReferenceCache();
     }
+
+    @Bean
+    public HttpTraceRepository htttpTraceRepository() {
+        return new InMemoryHttpTraceRepository();
+    };
 
 }
