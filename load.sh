@@ -1,0 +1,1 @@
+ab -n 5 -c 1 -m POST -H "Accept: text/plain" http://localhost:8080/rentPayReturn\?bikeId\=f6265b2a-3921-4e01-b380-cf93ded14f18
