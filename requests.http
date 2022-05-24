@@ -21,7 +21,7 @@ POST {{hostname}}/requestBike?bikeId=1972f57a-babe-44a7-b5dd-1a1333da521b
 Accept: application/json
 
 ###
-GET {{hostname}}/findPayment?reference=95496b07-1e9f-4639-8ff3-29b1c58cd89a
+GET {{hostname}}/findPayment?reference=f75c3d9b-9bd6-4de9-a674-4ea066797c3f
 Accept: application/json
 
 ###
