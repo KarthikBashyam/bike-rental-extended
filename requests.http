@@ -11,22 +11,22 @@ Accept: application/json
 ###
 
 # Show bike status
-GET {{hostname}}/bikes/bc3a2bf1-120a-4b3f-84a9-9a8b67a73624
+GET {{hostname}}/bikes/259d1b5c-0ebc-4118-bc42-e2b20170cb96
 Accept: application/json
 
 ###
 
 # Request one of the available bikes
-POST {{hostname}}/requestBike?bikeId=1972f57a-babe-44a7-b5dd-1a1333da521b
+POST {{hostname}}/requestBike?bikeId=259d1b5c-0ebc-4118-bc42-e2b20170cb96
 Accept: application/json
 
 ###
-GET {{hostname}}/findPayment?reference=f75c3d9b-9bd6-4de9-a674-4ea066797c3f
+GET {{hostname}}/findPayment?reference=7615413e-db96-4d17-b63b-9149056522bd
 Accept: application/json
 
 ###
 
-POST {{hostname}}/acceptPayment?id=7c38518b-3c4e-4b4b-9172-c4bef65ff3b0
+POST {{hostname}}/acceptPayment?id=32a92b93-a715-4a0f-974e-ce1db42c5418
 Accept: application/json
 
 ###
