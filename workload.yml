@@ -1,0 +1,38 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: bike-rental
+  labels:
+    apps.tanzu.vmware.com/workload-type: web
+    app.kubernetes.io/part-of: bike-rental-second
+spec:
+  # Build configuration, for the build resources in the supply
+  # chain
+  # +optional
+  build:
+
+    # Env is an array of environment variables to propagate to
+    # build resources in the supply chain. See
+    # https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/
+    # +optional
+    env:
+      - # EnvVar represents an environment variable present in a
+        # Container.
+        # +optional
+        name: BP_MAVEN_BUILT_MODULE
+        value: rental
+  params:
+    - name: annotations
+      value:
+        autoscaling.knative.dev/minScale: "1"
+  serviceClaims:
+    - name: db
+      ref:
+        apiVersion: sql.tanzu.vmware.com/v1
+        kind: Postgres
+        name: pg-rental-second
+  source:
+    git:
+      url: https://github.com/dcaron/bike-rental-extended
+      ref:
+        branch: spring-io-optimized
