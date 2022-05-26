@@ -3,6 +3,9 @@ package io.axoniq.demo.bikerental.rental;
 import com.thoughtworks.xstream.XStream;
 import io.axoniq.demo.bikerental.coreapi.payment.PaymentStatus;
 import io.axoniq.demo.bikerental.coreapi.rental.BikeStatus;
+import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.DuplicateCommandHandlerResolver;
+import org.axonframework.commandhandling.SimpleCommandBus;
 import org.axonframework.common.caching.Cache;
 import org.axonframework.common.caching.WeakReferenceCache;
 import org.axonframework.common.transaction.TransactionManager;
@@ -13,8 +16,11 @@ import org.axonframework.deadline.DeadlineManager;
 import org.axonframework.deadline.SimpleDeadlineManager;
 import org.axonframework.eventhandling.tokenstore.jpa.TokenEntry;
 import org.axonframework.messaging.StreamableMessageSource;
+import org.axonframework.messaging.interceptors.CorrelationDataInterceptor;
 import org.axonframework.modelling.saga.repository.jpa.SagaEntry;
+import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -74,6 +80,21 @@ public class RentalApplication {
                 (c, b) -> b.workerExecutor(workerExecutorService())
                            .batchSize(100)
         );
+    }
+
+    @Qualifier("localSegment")
+    @Bean
+    public SimpleCommandBus commandBus(TransactionManager txManager, AxonConfiguration axonConfiguration,
+                                       DuplicateCommandHandlerResolver duplicateCommandHandlerResolver) {
+        SimpleCommandBus commandBus =
+                SimpleCommandBus.builder()
+                        .duplicateCommandHandlerResolver(duplicateCommandHandlerResolver)
+                        .messageMonitor(axonConfiguration.messageMonitor(CommandBus.class, "commandBus"))
+                        .build();
+        commandBus.registerHandlerInterceptor(
+                new CorrelationDataInterceptor<>(axonConfiguration.correlationDataProviders())
+        );
+        return commandBus;
     }
 
     @Bean
