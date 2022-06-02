@@ -17,7 +17,7 @@ Accept: application/json
 ###
 
 # Request one of the available bikes
-POST {{hostname}}/requestBike?bikeId=259d1b5c-0ebc-4118-bc42-e2b20170cb96
+POST {{hostname}}/requestBike?bikeId=53bda0b4-fcf0-4ae8-b8ea-c6dd1b97ec4f
 Accept: application/json
 
 ###
