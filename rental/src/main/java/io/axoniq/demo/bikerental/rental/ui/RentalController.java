@@ -90,7 +90,7 @@ public class RentalController {
     public Mono<String> getPaymentId(@RequestParam("reference") String paymentRef) {
         Mono<String> queryResult = Mono.fromFuture(() -> queryGateway.query("getPaymentId", paymentRef, String.class))
                                        .filter(Objects::nonNull);
-        return queryResult.repeatWhenEmpty(20, f -> f.delayElements(Duration.ofMillis(250)))
+        return queryResult.repeatWhenEmpty(100, f -> f.delayElements(Duration.ofMillis(250)))
                           .switchIfEmpty(Mono.just("No payment found for given rental reference"));
 
     }
