@@ -6,25 +6,14 @@ metadata:
     apps.tanzu.vmware.com/workload-type: web
     app.kubernetes.io/part-of: bike-rental-second
 spec:
-  # Build configuration, for the build resources in the supply
-  # chain
-  # +optional
   build:
-
-    # Env is an array of environment variables to propagate to
-    # build resources in the supply chain. See
-    # https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/
-    # +optional
     env:
-      - # EnvVar represents an environment variable present in a
-        # Container.
-        # +optional
-        name: BP_MAVEN_BUILT_MODULE
+      - name: BP_MAVEN_BUILT_MODULE
         value: rental
   params:
     - name: annotations
       value:
-        autoscaling.knative.dev/minScale: "3"
+        autoscaling.knative.dev/minScale: "4"
         autoscaling.knative.dev/target: "20"
   serviceClaims:
     - name: db
