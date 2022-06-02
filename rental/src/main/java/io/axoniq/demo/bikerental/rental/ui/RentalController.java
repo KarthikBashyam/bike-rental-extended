@@ -154,7 +154,7 @@ public class RentalController {
         Mono<BikeStatus> queryResult = Mono.fromFuture(() -> findStatus(bikeId))
                                            .filter(Objects::nonNull)
                                            .filter(s -> s.getStatus() == RentalStatus.RENTED);
-        return queryResult.repeatWhenEmpty(20, f -> f.delayElements(Duration.ofMillis(250)))
+        return queryResult.repeatWhenEmpty(100, f -> f.delayElements(Duration.ofMillis(250)))
                           .map(s -> bikeId)
                           .toFuture();
     }
