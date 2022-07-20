@@ -3,6 +3,7 @@ package io.axoniq.demo.bikerental.rental;
 import com.thoughtworks.xstream.XStream;
 import io.axoniq.demo.bikerental.coreapi.payment.PaymentStatus;
 import io.axoniq.demo.bikerental.coreapi.rental.BikeStatus;
+import io.axoniq.demo.bikerental.rental.history.BikeHistory;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.DuplicateCommandHandlerResolver;
 import org.axonframework.commandhandling.SimpleCommandBus;
@@ -31,7 +32,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-@EntityScan(basePackageClasses = {BikeStatus.class, SagaEntry.class, TokenEntry.class, PaymentStatus.class})
+@EntityScan(basePackageClasses = {BikeStatus.class, SagaEntry.class, TokenEntry.class, PaymentStatus.class, BikeHistory.class})
 @SpringBootApplication
 public class RentalApplication {
 
